@@ -25,9 +25,11 @@
 	            <div class="card">
 	                <div class="card-header">
 	                    <h3 class="card-title">Danh sách Admin</h3><br>
+	                    @can('create',App\Models\User::class)
 	                    <a href="{{ route('users.create')}}" type="submit" class="btn btn-success">
                             <i class="fa fa-plus-square" aria-hidden="true"></i> Thêm mới
                         </a>
+                        @endcan
                         @if(session('thongbao'))
                             <div class="alert alert-info">
                                 {{session('thongbao')}}
@@ -57,7 +59,24 @@
 		                    <span style="color: red">{{session()->get('sua-error')}}</span>
 		                </div>
 		                @endif
+		                {{-- Flash Delete --}}
+		                @if(session()->has('delete'))
+		                <div class="alert alert-info">
+		                    <span style="color: white">{{session()->get('delete')}}</span>
+		                </div>
+
+		                @endif
+		                @if(session()->has('delete-error'))
+		                <div class="alert alert-success">
+		                    <span style="color: red">{{session()->get('delete-error')}}</span>
+		                </div>
+		                @endif
 						
+						{{-- <div class="form-group">
+                            <label for="exampleInputEmail1">Số điện thoại: </label>
+                            <input type="tel" id="namid" name="phone" class="form-control" id="">
+                            <button type="button" id="btnresult">test</button>
+                        </div> --}}
 						
 	                    <div class="card-tools">
 	                        <div class="input-group input-group-sm" style="width: 150px;">
@@ -78,6 +97,8 @@
 	                            <th>Tên người dùng</th>
 	                            <th>Ảnh</th>
 	                            <th>Địa chỉ</th>
+	                            <th>Giới thiệu</th>
+	                            <th>Quyền</th>
 	                            <th>Số điện thoại</th>
 	                            {{-- <th>Content</th> --}}
 	                            <th>Hành động</th>
@@ -85,48 +106,62 @@
 	                        </thead>
 	                        <tbody>
 	                       	@foreach($users as $key => $user)
-	                       		<tr style="text-align: center;">
-	                       			<td>{{ $user->id }}</td>
-	                       			<td>{{ $user->mail_address }}</td>
-	                       			<td>{{ $user->name }}</td>
-	                       			<td>
+	                       		<tr class="text-center">
+	                       			<td class="align-middle">{{ $user->id }}</td>
+	                       			<td class="align-middle">{{ $user->mail_address }}</td>
+	                       			<td class="align-middle">{{ $user->name }}</td>
+	                       			<td style="width: 134px;height: 105px;" class="align-middle">
 	                       				<ul class="list-inline">
 	                                        <li class="list-inline-item">
 	                                            <img class="table-avatar" alt="Avatar" class="avatar" 
 	                                                src="{{asset('uploads/users/' . $user->avatar)}}"
-	                                                 style="max-inline-size: 100px; border-radius: 50%; ">
+	                                                 style="width: 100px; border-radius: 50%;height: 100px; ">
 	                                        </li>
                                 		</ul>
 	                       			</td>
-	                       			<td>{{ $user->address }}</td>
-	                       			<td>{{ $user->phone }}</td>
+	                       			<td class="align-middle">{{ $user->address }}</td>
+	                       			<td class="align-middle" style="text-align: left;">{!! $user->content !!}</td>
+	                       			<td class="align-middle">
+	                       				@if($user->role==1)
+		                       				<span class="badge badge-success" data-toggle="tooltip" title="Admin (Quản trị viên)"><i class="fa fa-user-circle" aria-hidden="true" style="font-size: 2.73em;"></i>
+		                       				</span>
+		                       			@elseif($user->role==0)
+		                       				<span class="badge badge-warning" data-toggle="tooltip" title="Staff (Nhân viên)"><i class="fa fa-child" aria-hidden="true" style="font-size: 2.73em;"></i>
+		                       				</span>
+		                       			@endif
+	                       			</td>
+	                       			<td class="align-middle">{{ $user->phone }}</td>
 	                       			{{-- <td>{{ $user->content }}</td> --}}
-	                       			<td>
+	                       			<td class="align-middle">
+	                       				<form action="{{ route('users.destroy', $user->id ) }}" method="POST">
+                                        {{ csrf_field() }}
+                                        {{ method_field('DELETE') }}
+
 	                       				<a data-toggle="tooltip" title="Xem chi tiết" href="{{ route('users.show',$user->id)}}" type="submit" class="btn btn-warning">
-                                        <i class="fa fa-info-circle" aria-hidden="true"></i>
-                                    </a>
+                                        	<i class="fa fa-info-circle" aria-hidden="true"></i>
+                                    	</a><br>
+                                    	@can('update',$user)
                                         <a data-toggle="tooltip" title="Sửa" href="{{route('users.edit',$user->id)}}" type="submit" class="btn btn-primary">
                                             <i class="fa fa-edit" aria-hidden="true"></i>
-                                        </a>
+                                        </a><br>
+                                        @endcan
+                                        @can('delete',$user)
+                                        <button type="submit" class="btn btn-danger" data-toggle="tooltip" title="Xóa">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </button>
+                                        @endcan
+                                        {{-- @can('delete',$user)
                                         <a data-toggle="tooltip" title="Xóa" href="{{ route('users.destroy',$user->id)}}" type="submit" class="btn btn-danger">
                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                         </a>
-                                        {{-- <form action="{{ route('users.destroy', $user->id ) }}" method="POST">
-                                        	@csrf
-                                        	<input name="_method" type="hidden" value="DELETE">
-		                                    {{ csrf_field() }}
-		                                    {{ method_field('DELETE') }}
-		                                    <button type="submit" class="btn btn-warning">
-		                                        <i class="fa fa-btn fa-trash"></i>Xoá
-		                                    </button>
-		                                </form> --}}
-		                       		</td>
+                                        @endcan --}}
+                                    </form>
 	                       		</tr>
 	                       	@endforeach
 
 	                        </tbody>
 	                    </table>
-	                    {!! $users->links() !!}
+	                    {!!$users->links()!!}
 	                    {{-- {{$users->links()}} --}}
 	                </div>
 	                <!-- /.card-body -->

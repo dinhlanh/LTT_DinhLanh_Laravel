@@ -50,10 +50,10 @@
 	                        </div>
                             
                             
-	                        <div class="form-group">
+	                        {{-- <div class="form-group">
 	                            <label for="exampleInputEmail1">Mật khẩu: </label>
 	                            <input type="password" name="password" class="form-control" id="" placeholder="Password (Ít nhất 8 kí tự)">
-	                        </div>
+	                        </div> --}}
 	                        {{-- @error('password')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror --}}
@@ -76,13 +76,13 @@
 
                             <div class="form-group">
 	                            <label for="exampleInputEmail1">Số điện thoại: </label>
-	                            <input type="tel" name="phone" class="form-control" id="" value="{{$users->phone}}">
+	                            <input type="tel" id="" name="phone" class="form-control" id="" value="{{$users->phone}}">
 	                        </div>
 	                        @error('phone')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
 
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label for="exampleInputFile">Hình ảnh: </label>
                                 <div class="input-group">
                                     <div class="custom-file">
@@ -106,7 +106,7 @@
                                 @if ( Session::has('images') )
                                 <div class="alert alert-danger">{{ Session::get('images') }}</div>
                                 @endif
-                            </div>
+                            </div> --}}
 
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Mô tả user:</label>
@@ -130,7 +130,7 @@
                         <!-- /.card-body -->
 
                         <div class="card-footer">
-                            <button type="{{ route('users.index') }}" class="btn btn-warning"><i class="fa fa-asterisk" aria-hidden="true"> SỬA</i></button>
+                            <button type="{{ route('users.index') }}" class="btn btn-warning" id=""><i class="fa fa-asterisk" aria-hidden="true"> SỬA</i></button>
                         </div>
                     </form>
                 </div>

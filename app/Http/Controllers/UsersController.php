@@ -13,11 +13,19 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
-// use App\Http\Controllers\Validator;
-
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Access\Response;
+use Illuminate\Support\Facades\Gate;
+use App\Mail\WelcomeMail;
+use Illuminate\Support\Facades\Mail;
 
 class UsersController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -32,11 +40,14 @@ class UsersController extends Controller
         
         // $users = User::get();
         // phân trang
+        $this->authorize('viewAny', Auth::user());
         $users = User::paginate(20);
-        // $users = User::orderByRaw('created_at DESC')->paginate(20);
-        // $users = Cache::remember('user' , 86400 ,function(){
-        //     return User::orderByRaw('created_at DESC')->paginate(20);
-        // });
+
+        // $users = User::orderByRaw('users')->paginate(20);
+        $user = Cache::remember('users' , 86400 ,function(){
+            return User::get();
+        });
+        // dd($user);
         // $users = User::simplePaginate(20);
         return view('backend.users.index')->with(['users'=>$users]);
     }
@@ -49,6 +60,7 @@ class UsersController extends Controller
     public function create()
     {
         //
+        $this->authorize('create', User::class);
         $users = User::get();
         
        return view('backend.users.create')->with([
@@ -95,6 +107,7 @@ class UsersController extends Controller
         $users->content = $request->get('content');
         $users->role = $request->get('role');
         $save = $users->save();
+        Mail::to($users->mail_address)->send(new WelcomeMail());
         
         // dd($users);
         // // $save = 1;
@@ -123,7 +136,7 @@ class UsersController extends Controller
 
     public function search(Request $request){
         $search = $request->get('search');
-        $users = User::where('name', 'like', '%' . $search. '%')->orWhere('phone',$search)->paginate(5);
+        $users = User::where('name', 'like', '%' . $search. '%')->orWhere('address', 'like', '%'.$search. '%')->orWhere('phone',$search)->paginate(5);
         return view('backend.users.index',['users' => $users]);
     }
 
@@ -137,8 +150,12 @@ class UsersController extends Controller
     {
         //
         $users = User::find($id);
-        // $categories = Category::get();
-        return view('backend.users.edit',['users' => $users]);
+        
+        $user = Auth::user();
+        if($user->can('update', $user)){
+            return view('backend.users.edit',['users' => $users]);
+        }
+        else return abort('404');
     }
 
     /**
@@ -151,15 +168,17 @@ class UsersController extends Controller
     public function update(StoreUserRequest $request, $id)
     {
         //
+        
         $users = User::find($id);
         $users->mail_address = $request->get('mail_address');
-        $users->password = bcrypt($request->password);
+        // $users->password = bcrypt($request->password);
         $users->name = $request->get('name');
         $users->address = $request->get('address');
         $users->phone = $request->get('phone');
         // $get_avatar = $request->file('avatar');
         $users->content = $request->get('content');
         $users->role = $request->get('role');
+        // $this->authorize('update', User::class);
         $save = $users->save();
         if($save){
             $request->session()->flash('sua',' Bạn đã sửa thành công');
@@ -175,12 +194,18 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete($user)
+    public function destroy($id)
     {
         //
         $user = User::find($id);
+        // $this->authorize('delete', User::class);
         // dd($id);
-        $user->delete();
+        $save = $user->delete();
+        if($save){
+            $request->session()->flash('delete',' Bạn đã sửa thành công');
+        }else{
+            $request->session()->flash('delete-error',' Bạn đã sửa không thành công');
+        }
         return redirect()->route('users.index')->with('thongbao','Bạn đã xóa thành công');
     }
 }

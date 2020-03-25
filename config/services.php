@@ -21,13 +21,22 @@ return [
     ],
 
     'postmark' => [
-        'token' => env('POSTMARK_TOKEN'),
+        'token' => 'your-postmark-token',
     ],
 
     'ses' => [
-        'key' => env('AWS_ACCESS_KEY_ID'),
-        'secret' => env('AWS_SECRET_ACCESS_KEY'),
-        'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
+        'key' => 'your-ses-key',
+        'secret' => 'your-ses-secret',
+        'region' => 'ses-region',  // e.g. us-east-1
+        'options' => [
+            'ConfigurationSetName' => 'MyConfigurationSet',
+            'Tags' => [
+                [
+                    'Name' => 'foo',
+                    'Value' => 'bar',
+                ],
+            ],
+        ],
     ],
 
 ];

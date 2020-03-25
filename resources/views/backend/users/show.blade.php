@@ -56,11 +56,17 @@
                             </div>
 
                             <div class="form-group">
-                                <h4>Mô tả admin :</h4>{{ $users->content }}
+                                <h4>Mô tả admin :</h4>{!! $users->content !!}
                             </div>
 
                             <div class="form-group">
-                                <h4>Quyền :</h4>{{ $users->role }}
+                                <h4>Quyền :</h4> 
+                                @if($users->role==0)
+                                    <span>Staff (Nhân viên)</span>:
+                                @elseif($users->role==1)
+                                    <span>Admin (Quản trị viên)</span>:
+                                @endif
+                                {{ $users->role }}
                             </div>
                             
                         </div>

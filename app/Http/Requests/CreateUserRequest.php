@@ -32,7 +32,7 @@ class CreateUserRequest extends FormRequest
             'name' => 'required|min:8|max:100',
             'address' => 'required|min:8|max:255',
             'phone' => 'required|numeric',
-            'image' => 'required|max:2048',
+            'image' => 'max:2048',
         ];
     }
     public function messages()
