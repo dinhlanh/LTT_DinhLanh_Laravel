@@ -32,7 +32,7 @@ class UserPolicy
     public function view(User $user, User $model)
     {
         //
-        return $user->role==1||$user->role==0;
+        return $user->role ==1 || $user->role == 0;
     }
 
     /**
@@ -43,7 +43,6 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        //
         return ($user->role == 1);
     }
 
@@ -56,7 +55,6 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        //
         return ($user->role == 1);
     }
 
@@ -68,42 +66,8 @@ class UserPolicy
      * @return mixed
      */
 
-    public function isAdmin(User $user){
-        return $user->role == 1;
-    }
-
-    public function check(User $user){
-        return $user->role > 1;
-    }
-
-    public function delete(User $user, User $model)
-    {
-        //
-        return ($user->role == 1);
-    }
-
-    /**
-     * Determine whether the user can restore the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
-     * @return mixed
-     */
-    public function restore(User $user, User $model)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
-     * @return mixed
-     */
     public function forceDelete(User $user, User $model)
     {
-        //
-        return $user->role==1;
+        return $user->role == 1;
     }
 }

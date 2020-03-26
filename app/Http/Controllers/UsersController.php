@@ -7,7 +7,6 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\StoreUserRequest;
-// use App\Http\Controllers\CreateUserRequest;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Http\FormRequest;
@@ -34,21 +33,12 @@ class UsersController extends Controller
 
     public function index()
     {
-        //
-        // $users = \DB::table('users')->get();
-        // dd($users);
-        
-        // $users = User::get();
-        // phân trang
         $this->authorize('viewAny', Auth::user());
         $users = User::paginate(20);
-
-        // $users = User::orderByRaw('users')->paginate(20);
+        //Cache
         $user = Cache::remember('users' , 86400 ,function(){
             return User::get();
         });
-        // dd($user);
-        // $users = User::simplePaginate(20);
         return view('backend.users.index')->with(['users'=>$users]);
     }
 
@@ -63,14 +53,12 @@ class UsersController extends Controller
         $this->authorize('create', User::class);
         $users = User::get();
         
-       return view('backend.users.create')->with([
-            'users' => $users
-        ]);
+        return view('backend.users.create')->with(['users' => $users]);
     }
 
+    // Dashboard
     public function dashboard()
     {
-        //
        return view('backend.dashboard');
     }
     
@@ -84,10 +72,7 @@ class UsersController extends Controller
     // public function store(Request $request)
     public function store(CreateUserRequest $request)
     {
-        //
-        // dd($request);
         $users = new User();
-        
         $users->mail_address = $request->get('mail_address');
         $users->password = bcrypt($request->password);
         $users->name = $request->get('name');
@@ -99,18 +84,15 @@ class UsersController extends Controller
             $name_avatar = current(explode('.', $get_name_avatar));
             $new_avatar = $name_avatar . rand(0,99). '.' .$get_avatar->getClientOriginalExtension();
             $get_avatar->move('uploads/users',$new_avatar);
-            // $profileavatar = date('YmdHis') . "." . $get_avatar->getClientOriginalExtension();
-            // Storage::disk('public')->putFileAs('images/users/', $get_avatar, $profileavatar);
             $users->avatar = $new_avatar;
         }
-
         $users->content = $request->get('content');
         $users->role = $request->get('role');
         $save = $users->save();
+        // Mail
         Mail::to($users->mail_address)->send(new WelcomeMail());
-        
-        // dd($users);
-        // // $save = 1;
+
+        // Flash
         if($save){
             $request->session()->flash('thanhcong',' Tạo mới thành công');
         }else{
@@ -118,7 +100,6 @@ class UsersController extends Controller
         }
         return redirect()->route('users.index');
     }
-
 
     /**
      * Display the specified resource.
@@ -128,12 +109,11 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        //
         $users = User::find($id);
-        // $users = User::get();
         return view('backend.users.show')->with(['users'=>$users]);
     }
 
+    // Search
     public function search(Request $request){
         $search = $request->get('search');
         $users = User::where('name', 'like', '%' . $search. '%')->orWhere('address', 'like', '%'.$search. '%')->orWhere('phone',$search)->paginate(5);
@@ -148,11 +128,9 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
         $users = User::find($id);
-        
         $user = Auth::user();
-        if($user->can('update', $user)){
+        if ($user->can('update', $user)){
             return view('backend.users.edit',['users' => $users]);
         }
         else return abort('404');
@@ -167,15 +145,11 @@ class UsersController extends Controller
      */
     public function update(StoreUserRequest $request, $id)
     {
-        //
-        
         $users = User::find($id);
         $users->mail_address = $request->get('mail_address');
-        // $users->password = bcrypt($request->password);
         $users->name = $request->get('name');
         $users->address = $request->get('address');
         $users->phone = $request->get('phone');
-        // $get_avatar = $request->file('avatar');
         $users->content = $request->get('content');
         $users->role = $request->get('role');
         // $this->authorize('update', User::class);
@@ -196,10 +170,8 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
         $user = User::find($id);
         // $this->authorize('delete', User::class);
-        // dd($id);
         $save = $user->delete();
         if($save){
             $request->session()->flash('delete',' Bạn đã sửa thành công');

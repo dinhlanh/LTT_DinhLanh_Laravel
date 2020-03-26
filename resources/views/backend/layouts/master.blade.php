@@ -108,35 +108,27 @@
   $('#btnresult').on('click', function(){
     console.log("btn click");
     var data = $('#namid').val();
-
     console.log(data);
-
-    if(data=='mina'){
+    if (data=='mina'){
         Swal.fire({
-          title: 'Hello mina',
-          type: 'success',
-          
-          showCloseButton: true,
-          
+            title: 'Hello mina',
+            type: 'success',
+            showCloseButton: true,
         })
     }else if(data=='raju'){
         Swal.fire({
-          title: 'Hello raju',
-          type: 'warning',
-          
-          showCloseButton: true,
-          
+            title: 'Hello raju',
+            type: 'warning',
+            showCloseButton: true,
         })
-    }else{
+    }else {
         Swal.fire({
-          title: 'none',
-          type: 'error',
-          
-          showCloseButton: true,
-          
+            title: 'none',
+            type: 'error',
+            showCloseButton: true,
         })
     }
-  })
+})
 </script>
 <script>
 $(function () {

@@ -1,6 +1,5 @@
 @extends('backend.layouts.master')
 @section('content-header')
-	<!-- Content Header -->
 	<div class="container-fluid">
 	    <div class="row mb-2">
 	        <div class="col-sm-6">
@@ -13,10 +12,9 @@
 	                <li class="breadcrumb-item"><a href="#">Admin</a></li>
 	                <li class="breadcrumb-item active">Danh sách</li>
 	            </ol>
-	        </div><!-- /.col -->
-	    </div><!-- /.row -->
-	</div><!-- /.container-fluid -->
-	<!-- Content -->
+	        </div>
+	    </div>
+	</div>
 	<div class="container-fluid">
 	    <!-- Main row -->
 	    <div class="row">
@@ -71,13 +69,6 @@
 		                    <span style="color: red">{{session()->get('delete-error')}}</span>
 		                </div>
 		                @endif
-						
-						{{-- <div class="form-group">
-                            <label for="exampleInputEmail1">Số điện thoại: </label>
-                            <input type="tel" id="namid" name="phone" class="form-control" id="">
-                            <button type="button" id="btnresult">test</button>
-                        </div> --}}
-						
 	                    <div class="card-tools">
 	                        <div class="input-group input-group-sm" style="width: 150px;">
 	                            <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
@@ -100,7 +91,6 @@
 	                            <th>Giới thiệu</th>
 	                            <th>Quyền</th>
 	                            <th>Số điện thoại</th>
-	                            {{-- <th>Content</th> --}}
 	                            <th>Hành động</th>
 	                        </tr>
 	                        </thead>
@@ -131,7 +121,6 @@
 		                       			@endif
 	                       			</td>
 	                       			<td class="align-middle">{{ $user->phone }}</td>
-	                       			{{-- <td>{{ $user->content }}</td> --}}
 	                       			<td class="align-middle">
 	                       				<form action="{{ route('users.destroy', $user->id ) }}" method="POST">
                                         {{ csrf_field() }}
@@ -150,11 +139,6 @@
                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                         </button>
                                         @endcan
-                                        {{-- @can('delete',$user)
-                                        <a data-toggle="tooltip" title="Xóa" href="{{ route('users.destroy',$user->id)}}" type="submit" class="btn btn-danger">
-                                            <i class="fa fa-trash" aria-hidden="true"></i>
-                                        </a>
-                                        @endcan --}}
                                     </form>
 	                       		</tr>
 	                       	@endforeach
@@ -162,13 +146,9 @@
 	                        </tbody>
 	                    </table>
 	                    {!!$users->links()!!}
-	                    {{-- {{$users->links()}} --}}
 	                </div>
-	                <!-- /.card-body -->
 	            </div>
-	            <!-- /.card -->
 	        </div>
 	    </div>
-	    <!-- /.row (main row) -->
-	</div><!-- /.container-fluid -->
+	</div>
 @endsection

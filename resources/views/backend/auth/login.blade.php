@@ -28,9 +28,6 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 <body class="hold-transition login-page" style="background-image: url(https://www.ecopetit.cat/wpic/mpic/149-1492530_neon-mask-wallpaper-4k.jpg);">
-
-
-
 <div class="login-box">
     <div class="login-logo">
         <a href="{{ route('login.form')}}"><h1 style="color: orange">LifeTime-DDL</h1></a>
@@ -39,7 +36,6 @@
     <div class="card">
         <div class="card-body login-card-body">
             <p class="login-box-msg">Sign in to start your session</p>
-
             <form action="{{ route('login.store')}}" method="post">
             	@csrf
                 @if ($errors->any())
@@ -52,7 +48,6 @@
                     </div>
                 @endif
 
-                
                 <div class="input-group mb-3">
                     <input type="email" name="mail_address" class="form-control" placeholder="Email" value="{{ old('mail_address') }}" required autocomplete="mail_address" autofocus>
                     @error('mail_address')
@@ -88,11 +83,9 @@
                             </label>
                         </div>
                     </div>
-                    <!-- /.col -->
                     <div class="col-4">
                         <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
                     </div>
-                    <!-- /.col -->
                 </div>
                 
                 @if(session('error'))
@@ -111,7 +104,6 @@
                     <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
                 </a>
             </div>
-            <!-- /.social-auth-links -->
 
             <p class="mb-1">
                 @if (Route::has('password.request'))
@@ -121,13 +113,11 @@
                 @endif
             </p>
             <p class="mb-0">
-                <a href="{{ route('register.form')}}" class="btn btn-link">{{ __('Register a new membership') }}</a>
+                <a href="#" class="btn btn-link">{{ __('Register a new membership') }}</a>
             </p>
         </div>
-        <!-- /.login-card-body -->
     </div>
 </div>
-
 
 <script src="/admin/plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
@@ -136,31 +126,19 @@
 <script>
     $.widget.bridge('uibutton', $.ui.button)
 </script>
-<!-- Bootstrap 4 -->
 <script src="/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- ChartJS -->
 <script src="/admin/plugins/chart.js/Chart.min.js"></script>
-<!-- Sparkline -->
 <script src="/admin/plugins/sparklines/sparkline.js"></script>
-<!-- JQVMap -->
 <script src="/admin/plugins/jqvmap/jquery.vmap.min.js"></script>
 <script src="/admin/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
-<!-- jQuery Knob Chart -->
 <script src="/admin/plugins/jquery-knob/jquery.knob.min.js"></script>
-<!-- daterangepicker -->
 <script src="/admin/plugins/moment/moment.min.js"></script>
 <script src="/admin/plugins/daterangepicker/daterangepicker.js"></script>
-<!-- Tempusdominus Bootstrap 4 -->
 <script src="/admin/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-<!-- Summernote -->
 <script src="/admin/plugins/summernote/summernote-bs4.min.js"></script>
-<!-- overlayScrollbars -->
 <script src="/admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-<!-- AdminLTE App -->
 <script src="/admin/dist/js/adminlte.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="/admin/dist/js/pages/dashboard.js"></script>
-<!-- AdminLTE for demo purposes -->
 <script src="/admin/dist/js/demo.js"></script>
 </body>
 </html>

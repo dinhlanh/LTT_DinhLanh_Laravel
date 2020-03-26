@@ -40,26 +40,11 @@
                                     </ul>
                                 </div>
                             @endif
-                            {{-- @if ($message = Session::get('success'))
- 
-                            <div class="alert alert-success alert-block">
-             
-                                <button type="button" class="close" data-dismiss="alert">×</button>
-             
-                                <strong>{{ $message }}</strong>
-             
-                            </div>
-                        @endif --}}
+
                         	<div class="form-group">
 	                            <label for="exampleInputEmail1">Địa chỉ mail: </label>
 	                            <input type="email" name="mail_address" class="form-control" id="" placeholder="Nhập email">
 	                        </div>
-	                        {{-- <div class="input-group">
-	                        	<div class="input-group-prepend">
-	                        		<span class="input-group-text">@</span>
-	                        		<input type="email" name="email" class="form-control" id="username" placeholder="email" required>
-	                        	</div>
-	                        </div> --}}
 	                        @error('mail_address')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -102,9 +87,7 @@
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" id="exampleInputFile" name="avatar" multiple >
                                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-
                                     </div>
-
                                     <div class="input-group-append">
                                         <span class="input-group-text" id="">Ảnh: </span>
                                     </div>               
@@ -149,6 +132,5 @@
                 </div>
             </div>
         </div>
-        <!-- /.row (main row) -->
-    </div><!-- /.container-fluid -->
+    </div>
 @endsection

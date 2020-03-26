@@ -80,25 +80,21 @@ class LoginController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-
-        // dd('scscs');
         $email = $request->get('mail_address');
         $password = $request->get('password');
-        
-        // dd('ssss');
-        if (Auth::attempt(['mail_address' => $email, 'password' => $password,'role'=>1])) {
+        if (Auth::attempt(['mail_address' => $email, 'password' => $password,'role' => 1])) {
             // Authentication passed...
             if(Auth::user()->role == 1){
                 return redirect()->route('users.index');
             }else{
-                return $this->sendFailedLoginResponse($request);
+                return redirect()->route('dashboard');
             }
-            return redirect()->route('dashboard');
         }
-        else if (Auth::attempt(['mail_address' => $email, 'password' => $password,'role'=>0])) {
+        elseif (Auth::attempt(['mail_address' => $email, 'password' => $password,'role' => 0])) {
             // Authentication passed...
             return redirect()->route('users.dashboard');
-        }else{
+        }
+        else {
             return back()->with('error','Email hoặc mật khẩu không chính xác');
         }
     }

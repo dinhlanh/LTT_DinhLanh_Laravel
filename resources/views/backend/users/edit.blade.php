@@ -12,21 +12,17 @@
                     <li class="breadcrumb-item"><a href="#">User</a></li>
                     <li class="breadcrumb-item active">Sửa User</li>
                 </ol>
-            </div><!-- /.col -->
-        </div><!-- /.row -->
-    </div><!-- /.container-fluid -->
+            </div>
+        </div>
+    </div>
     <!-- Content -->
     <div class="container-fluid">
-        <!-- Main row -->
         <div class="row">
             <div class="col-md-12">
-                <!-- general form elements -->
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Sửa User</h3>
                     </div>
-                    <!-- /.card-header -->
-                    <!-- form start -->
                     <form role="form" method="post" action="{{ route('users.update',$users->id)}}">
                         @csrf
                         {{ method_field('PUT') }}
@@ -48,15 +44,6 @@
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
 	                        </div>
-                            
-                            
-	                        {{-- <div class="form-group">
-	                            <label for="exampleInputEmail1">Mật khẩu: </label>
-	                            <input type="password" name="password" class="form-control" id="" placeholder="Password (Ít nhất 8 kí tự)">
-	                        </div> --}}
-	                        {{-- @error('password')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror --}}
 
                             <div class="form-group">
 	                            <label for="exampleInputEmail1">Tên: </label>
@@ -82,32 +69,6 @@
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
 
-                            {{-- <div class="form-group">
-                                <label for="exampleInputFile">Hình ảnh: </label>
-                                <div class="input-group">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="exampleInputFile" name="avatar" multiple >
-                                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-
-                                    </div>
-
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="">Ảnh: </span>
-                                    </div>               
-                                </div>
-                                <div>
-                                	<img class="table-avatar" alt="Avatar" class="avatar" 
-                                        src="{{asset('uploads/users/' . $users->avatar)}}"
-                                         style="max-inline-size: 200px; ">
-                                </div>
-                                @error('image')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
-                                @if ( Session::has('images') )
-                                <div class="alert alert-danger">{{ Session::get('images') }}</div>
-                                @endif
-                            </div> --}}
-
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Mô tả user:</label>
                                 <textarea name="content" value="{{$users->content}}" class="textarea" placeholder="Place some text here">
@@ -125,10 +86,7 @@
 	                            	<input type="radio" name="role" value="0" @if($users->role == 0 ) {{"checked"}} @endif >User
 	                            </label>
 	                        </div>
-                            
                         </div>
-                        <!-- /.card-body -->
-
                         <div class="card-footer">
                             <button type="{{ route('users.index') }}" class="btn btn-warning" id=""><i class="fa fa-asterisk" aria-hidden="true"> SỬA</i></button>
                         </div>
@@ -136,6 +94,5 @@
                 </div>
             </div>
         </div>
-        <!-- /.row (main row) -->
-    </div><!-- /.container-fluid -->
+    </div>
 @endsection
