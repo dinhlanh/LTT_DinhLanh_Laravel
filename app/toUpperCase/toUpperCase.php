@@ -14,4 +14,3 @@ class toUpperCase
 		// return view('backend.users.index');
 	}
 }
-?>

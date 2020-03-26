@@ -173,9 +173,10 @@ class UsersController extends Controller
         $user = User::find($id);
         // $this->authorize('delete', User::class);
         $save = $user->delete();
-        if($save){
+        if ($save){
             $request->session()->flash('delete',' Bạn đã sửa thành công');
-        }else{
+        }
+        else {
             $request->session()->flash('delete-error',' Bạn đã sửa không thành công');
         }
         return redirect()->route('users.index')->with('thongbao','Bạn đã xóa thành công');

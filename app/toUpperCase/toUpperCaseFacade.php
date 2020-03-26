@@ -9,4 +9,3 @@ class toUpperCaseFacade extends Facade
 		return 'toUpperCase';
 	}
 }
-?>
