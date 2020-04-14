@@ -17,6 +17,7 @@ use Illuminate\Auth\Access\Response;
 use Illuminate\Support\Facades\Gate;
 use App\Mail\WelcomeMail;
 use Illuminate\Support\Facades\Mail;
+use Session;
 
 class UsersController extends Controller
 {
@@ -180,5 +181,14 @@ class UsersController extends Controller
             $request->session()->flash('delete-error',' Bạn đã sửa không thành công');
         }
         return redirect()->route('users.index')->with('thongbao','Bạn đã xóa thành công');
+    }
+
+    public function language(Request $request,$language)
+    {
+        //
+        if($language) {
+            Session::put('language',$language);
+        }
+        return redirect()->back();
     }
 }

@@ -18,6 +18,7 @@ Route::group([
 	], function (){
 	Route::resource('users','UsersController');
 	Route::get('/search','UsersController@search')->name('users.search');
+	Route::get('Language/{locale}','UsersController@language')->name('users.language');
 	Route::get('/dashboard','UsersController@dashboard')->name('users.dashboard');
 	Route::get('test', function(){
 		toUpperCase::sayHello();
