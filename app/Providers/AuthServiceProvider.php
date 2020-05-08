@@ -15,7 +15,6 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'App\Model' => 'App\Policies\ModelPolicy',
         User::class => UserPolicy::class,
     ];
 
@@ -26,6 +25,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // role 1 access rights
         $this->registerPolicies();
         Gate::define('update', function ($user) {
             return $user->role == 1;

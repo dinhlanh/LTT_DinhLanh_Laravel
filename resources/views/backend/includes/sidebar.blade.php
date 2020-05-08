@@ -21,8 +21,6 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link active">
               &nbsp <i class="fa fa-user" aria-hidden="true"></i>
@@ -54,49 +52,29 @@
           </li>
           
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('users.dashboard')}}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
-                Widgets
+                Vận dụng
                 <span class="right badge badge-danger">New</span>
               </p>
             </a>
           </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+          <li class="nav-item">
+            <a href="{{ route('users.dashboard')}}" class="nav-link">
               <i class="nav-icon fas fa-chart-pie"></i>
               <p>
-                Charts
-                <i class="right fas fa-angle-left"></i>
+                Biểu đồ
+                <i class="right"></i>
               </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>ChartJS</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Flot</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Inline</p>
-                </a>
-              </li>
-            </ul>
+            </a>          
           </li>
           
           <li class="nav-item has-treeview has-treeview">
             <a href="#" class="nav-link has-treeview">
               <i class="nav-icon fas fa-edit"></i>
               <p>
-                Forms
+                Lưu Trữ
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -131,7 +109,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
-                Layout Options
+                Tùy chọn giao diện
                 <i class="fas fa-angle-left right"></i>
                 <span class="badge badge-info right">6</span>
               </p>
@@ -185,7 +163,7 @@
             <a href="#" class="nav-link has-treeview">
               <i class="nav-icon fas fa-edit"></i>
               <p>
-                Charts
+                Phụ lục
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -194,7 +172,7 @@
             <a href="#" class="nav-link has-treeview">
               <i class="nav-icon fas fa-edit"></i>
               <p>
-                Forms
+                Tra cứu
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>

@@ -18,9 +18,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        //
-        // return User::all();
-        // return UserResource::collection(User::all());
+        //api get data
         return new UserCollection(User::all());
     }
 
@@ -32,7 +30,7 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //api create
         return User::create($request->all());
     }
 
@@ -57,7 +55,7 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        //api update
         $user->update($request->all());
         return $user;
     }
@@ -70,7 +68,7 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        //api delete
         $user->delete();
     }
 }

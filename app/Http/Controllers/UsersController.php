@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Gate;
 use App\Mail\WelcomeMail;
 use Illuminate\Support\Facades\Mail;
 use Session;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Collection;
 
 class UsersController extends Controller
 {
@@ -37,7 +39,7 @@ class UsersController extends Controller
         $this->authorize('viewAny', Auth::user());
         $users = User::paginate(20);
         //Cache
-        $user = Cache::remember('users' , 86400 ,function(){
+        $user = Cache::remember('users', 86400, function(){
             return User::get();
         });
         return view('backend.users.index')->with(['users'=>$users]);
@@ -94,9 +96,9 @@ class UsersController extends Controller
         Mail::to($users->mail_address)->send(new WelcomeMail());
 
         // Flash
-        if($save){
+        if ($save) {
             $request->session()->flash('thanhcong',' Tạo mới thành công');
-        }else{
+        } else {
             $request->session()->flash('error',' Tạo mới không thành công');
         }
         return redirect()->route('users.index');
@@ -114,6 +116,12 @@ class UsersController extends Controller
         return view('backend.users.show')->with(['users'=>$users]);
     }
 
+    /**
+     * Search a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     // Search
     public function search(Request $request){
         $search = $request->get('search');
@@ -155,9 +163,10 @@ class UsersController extends Controller
         $users->role = $request->get('role');
         // $this->authorize('update', User::class);
         $save = $users->save();
-        if($save){
+        // Flash
+        if ($save) {
             $request->session()->flash('sua',' Bạn đã sửa thành công');
-        }else{
+        } else {
             $request->session()->flash('sua-error',' Bạn đã sửa không thành công');
         }
         return redirect()->route('users.index');
@@ -174,18 +183,24 @@ class UsersController extends Controller
         $user = User::find($id);
         // $this->authorize('delete', User::class);
         $save = $user->delete();
-        if ($save){
-            $request->session()->flash('delete',' Bạn đã sửa thành công');
-        }
-        else {
-            $request->session()->flash('delete-error',' Bạn đã sửa không thành công');
+        if ($save) {
+            Session()->flash('delete',' Bạn đã xóa thành công');
+        } else {
+            Session()->flash('delete-error',' Bạn đã xóa không thành công');
         }
         return redirect()->route('users.index')->with('thongbao','Bạn đã xóa thành công');
     }
 
+    /**
+     * Language the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $language
+     * @return \Illuminate\Http\Response
+     */
     public function language(Request $request,$language)
     {
-        //
+        //chek language
         if($language) {
             Session::put('language',$language);
         }

@@ -8,8 +8,8 @@
 	        </div><!-- /.col -->
 	        <div class="col-sm-6">
 	            <ol class="breadcrumb float-sm-right">
-	                <li class="breadcrumb-item"><a href="#">Home</a></li>
-	                <li class="breadcrumb-item"><a href="#">Admin</a></li>
+	                <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+	                <li class="breadcrumb-item"><a href="#">Người dùng</a></li>
 	                <li class="breadcrumb-item active">Danh sách</li>
 	            </ol>
 	        </div>
@@ -28,11 +28,6 @@
                             <i class="fa fa-plus-square" aria-hidden="true"></i> Thêm mới
                         </a>
                         @endcan
-                        @if(session('thongbao'))
-                            <div class="alert alert-info">
-                                {{session('thongbao')}}
-                            </div>
-                        @endif
                         {{-- Flash tạo thêm mơi --}}
                         @if(session()->has('thanhcong'))
 		                <div class="alert alert-info">
@@ -71,7 +66,7 @@
 		                @endif
 	                    <div class="card-tools">
 	                        <div class="input-group input-group-sm" style="width: 150px;">
-	                            <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+	                            <input type="text" name="table_search" class="form-control float-right" placeholder="Tìm Kiếm">
 
 	                            <div class="input-group-append">
 	                                <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>

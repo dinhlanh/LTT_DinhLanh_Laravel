@@ -43,11 +43,6 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    // public function username()
-    // {
-    //     return 'username';
-    // }
-
     public function logout(){
         Auth::logout();
         return redirect()->route('login');
@@ -60,6 +55,7 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
+        //check validate
         $validator = \Validator::make($request->all(),
             [
                 'mail_address' => 'bail|required|email',

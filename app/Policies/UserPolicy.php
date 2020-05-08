@@ -43,6 +43,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
+        //check role 1 create
         return ($user->role == 1);
     }
 
@@ -55,6 +56,7 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
+        //check role 1 update
         return ($user->role == 1);
     }
 
@@ -68,6 +70,7 @@ class UserPolicy
 
     public function forceDelete(User $user, User $model)
     {
+        //check role 1 delete
         return $user->role == 1;
     }
 }
