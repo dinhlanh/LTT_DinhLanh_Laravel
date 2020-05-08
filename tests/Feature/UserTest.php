@@ -32,20 +32,20 @@ class UserTest extends TestCase
     {
         $this->assertTrue(true);
     }
-    public function only_logged_in_users_can_see_the_users_list()
+    public function onlyUsersList()
     {
         $response = $this->get('/users')
             ->assertRedirect('/login');
     }
 
-    public function authenticated_users_can_see_the_users_list()
+    public function authenticatedUsers()
     {
         $this->actingAs(factory(User::class)->create());
         $response = $this->get('/users')
             ->assertOk();
     }
 
-    public function a_users_can_be_added_through_the_form()
+    public function usersAdded()
     {
         $this->actingAsAdmin();
 
@@ -54,7 +54,7 @@ class UserTest extends TestCase
         $this->assertCount(1, User::all());
     }
 
-    public function a_name_is_required()
+    public function nameRequired()
     {
         $this->actingAsAdmin();
 
@@ -64,7 +64,7 @@ class UserTest extends TestCase
         $this->assertCount(0, User::all());
     }
 
-    public function a_name_is_at_least_3_characters()
+    public function nameCharacters()
     {
         $this->actingAsAdmin();
 
@@ -74,7 +74,7 @@ class UserTest extends TestCase
         $this->assertCount(0, User::all());
     }
 
-    public function an_mail_is_required()
+    public function mailRequired()
     {
         $this->actingAsAdmin();
 

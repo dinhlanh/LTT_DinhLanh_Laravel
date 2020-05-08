@@ -20,12 +20,13 @@ class AuthServiceProvider extends ServiceProvider
 
     /**
      * Register any authentication / authorization services.
+     * Role 1 access rights
      *
      * @return void
      */
     public function boot()
     {
-        // role 1 access rights
+        //
         $this->registerPolicies();
         Gate::define('update', function ($user) {
             return $user->role == 1;
