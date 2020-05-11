@@ -19,13 +19,8 @@ class AuthController extends Controller
      * @param  [string] password_confirmation
      * @return [string] message
      */
-    public function signup(Request $request)
+    public function signUp(CreateUserRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string',
-            'mail_address' => 'required|string|mail_address|unique:users',
-            'password' => 'required|string|confirmed',
-        ]);
         $user = new User([
             'name' => $request->name,
             'mail_address' => $request->mail_address,
@@ -49,20 +44,24 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        //check validate
         $request->validate([
             'mail_address' => 'required|string|mail_address',
             'password' => 'required|string',
             'remember_me' => 'boolean'
         ]);
+
         $credentials = request(['mail_address', 'password']);
+
         if(!Auth::attempt($credentials))
             return response()->json([
                 'message' => 'Unauthorized'
-            ], 401);
+            ], 401
+        );
+
         $user = $request->user();
         $tokenResult = $user->createToken('Personal Access Token');
         $token = $tokenResult->token;
+
         if ($request->remember_me)
             $token->expires_at = Carbon::now()->addWeeks(1);
         $token->save();
@@ -96,10 +95,5 @@ class AuthController extends Controller
     public function user(Request $request)
     {
         return response()->json($request->user());
-    }
-
-    public function test()
-    {
-        dd('12112');
     }
 }

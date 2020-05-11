@@ -125,7 +125,9 @@ class UsersController extends Controller
     // Search
     public function search(Request $request){
         $search = $request->get('search');
-        $users = User::where('name', 'like', '%' . $search. '%')->orWhere('address', 'like', '%'.$search. '%')->orWhere('phone',$search)->paginate(5);
+        $users = User::where('name', 'like', '%' . $search. '%')
+        ->orWhere('address', 'like', '%'.$search. '%')
+        ->orWhere('phone',$search)->paginate(5);
         return view('backend.users.index',['users' => $users]);
     }
 
@@ -200,7 +202,6 @@ class UsersController extends Controller
      */
     public function language(Request $request,$language)
     {
-        //chek language
         if($language) {
             Session::put('language',$language);
         }
