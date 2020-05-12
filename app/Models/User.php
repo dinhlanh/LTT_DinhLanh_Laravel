@@ -10,4 +10,7 @@ class User extends Authenticatable
 {
     protected $table = 'users';
     public $timestamps = true;
+
+    const ROLE_ADMIN = 1;
+    const ROLE_USER = 0;
 }

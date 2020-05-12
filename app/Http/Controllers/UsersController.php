@@ -42,6 +42,7 @@ class UsersController extends Controller
         $user = Cache::remember('users', 86400, function(){
             return User::get();
         });
+        
         return view('backend.users.index')->with(['users'=>$users]);
     }
 
@@ -126,8 +127,8 @@ class UsersController extends Controller
     public function search(Request $request){
         $search = $request->get('search');
         $users = User::where('name', 'like', '%' . $search. '%')
-        ->orWhere('address', 'like', '%'.$search. '%')
-        ->orWhere('phone',$search)->paginate(5);
+            ->orWhere('address', 'like', '%'.$search. '%')
+            ->orWhere('phone',$search)->paginate(5);
         return view('backend.users.index',['users' => $users]);
     }
 
