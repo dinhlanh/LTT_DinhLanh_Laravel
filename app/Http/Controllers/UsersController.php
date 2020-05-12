@@ -127,8 +127,13 @@ class UsersController extends Controller
     public function search(Request $request){
         $search = $request->get('search');
         $users = User::where('name', 'like', '%' . $search. '%')
+<<<<<<< HEAD
             ->orWhere('address', 'like', '%'.$search. '%')
             ->orWhere('phone',$search)->paginate(5);
+=======
+        ->orWhere('address', 'like', '%'.$search. '%')
+        ->orWhere('phone',$search)->paginate(5);
+>>>>>>> c2b4c7866e93098b47bd47428a46c738ddfd6404
         return view('backend.users.index',['users' => $users]);
     }
 

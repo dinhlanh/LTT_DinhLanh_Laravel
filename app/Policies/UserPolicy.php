@@ -43,7 +43,6 @@ class UserPolicy
     public function create(User $user)
     {
         return ($user->role == User::ROLE_ADMIN);
-
     }
 
     /**
@@ -71,4 +70,5 @@ class UserPolicy
     public function forceDelete(User $user, User $model)
     {
         return $user->role == User::ROLE_ADMIN;
+    }
 }
