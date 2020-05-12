@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::group([
-    'prefix' => 'admin',
-    'middleware' =>'auth'
-	], function (){
+	'prefix' => 'admin',
+	'middleware' =>'auth'
+], function (){
 	Route::resource('users','UsersController');
 	Route::get('/search','UsersController@search')->name('users.search');
 	Route::get('Language/{locale}','UsersController@language')->name('users.language');
@@ -23,8 +23,14 @@ Route::group([
 	Route::get('test', function(){
 		toUpperCase::sayHello();
 	});
+
+	
 });
 
+Route::group(['prefix' => 'api'], function () {
+	Route::resource('users', 'HelloWorldController');    
+});
+Route::view('/{any}', 'welcome')->where('any', '.*');
 //login
 Route::get('admin/login', 'Auth\LoginController@showLoginForm')->name('login.form');
 Route::post('admin/login', 'Auth\LoginController@login')->name('login.store');

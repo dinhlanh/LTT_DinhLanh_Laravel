@@ -62,6 +62,12 @@
                 margin-bottom: 30px;
             }
         </style>
+        <script type="text/javascript">
+            window.Laravel = {!! json_encode([
+                'baseUrl' => url('/'),
+                'csrfToken' => csrf_token(),
+            ]) !!};
+        </script>
     </head>
     <body>
         <div class="flex-center position-ref full-height">
@@ -96,5 +102,7 @@
                 </div>
             </div>
         </div>
+        <div id="app"></div>
+        <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
     </body>
 </html>
